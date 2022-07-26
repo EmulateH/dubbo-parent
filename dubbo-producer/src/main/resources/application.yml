@@ -1,0 +1,41 @@
+#服务配置
+server:
+  #端口
+  port: 8080
+  #服务编码
+  tomcat:
+    uri-encoding: UTF-8
+#spring相关配置
+spring:
+  #应用配置
+  application:
+    #应用名称
+    name: dubbo-producer #注册到nacos配置中心的服务名称
+  main:
+    allow-bean-definition-overriding: true
+  cloud:
+    #nacos注册中心
+    nacos:
+      discovery:
+        server-addr: 120.55.169.247:8848 #注册中心配置
+dubbo:
+  #dubbo服务版本
+  application:
+    version: 1.0.0
+    logger: slf4j
+  #dubbo接口扫描路径
+  scan:
+    base-packages: com.itheima.dubbo #可以用@EnableDubbo代替
+  #dubbo服务注册
+  registry:
+    address: spring-cloud://120.55.169.247
+  #dubbo服务协议类型及端口，线程数【这里是默认配置】
+  protocol:
+    name: dubbo
+    port: 28080
+    threads: 200
+    accesslog: logs/dubbo-producer-01.log
+  provider:
+    timeout: 3000 # 【1通用】配置超时时间
+  cloud:
+    subscribed-services: ''

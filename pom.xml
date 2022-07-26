@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.itheima.dubbo</groupId>
+    <artifactId>dubbo-parent</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>dubbo-interface</module>
+        <module>dubbo-producer</module>
+        <module>dubbo-web</module>
+    </modules>
+    <packaging>pom</packaging>
+
+    <name>dubbo-parent</name>
+    <url>http://www.example.com</url>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <interFace.version>1.0-SNAPSHOT</interFace.version>
+        <!--spring-cloud-alibaba版本-->
+        <spring-cloud-alibaba.version>2.1.4.RELEASE</spring-cloud-alibaba.version>
+        <!--spring-boot版本-->
+        <spring.boot.version>2.1.6.RELEASE</spring.boot.version>
+
+    </properties>
+
+    <!--声明jar-->
+    <dependencyManagement>
+        <dependencies>
+            <!--接口定义层-->
+            <dependency>
+                <groupId>com.itheima.dubbo</groupId>
+                <artifactId>dubbo-interface</artifactId>
+                <version>${interFace.version}</version>
+            </dependency>
+            <!---spring-cloud-alibaba主配置-->
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>${spring-cloud-alibaba.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!---springboot主配置-->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring.boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <plugins>
+            <!--jdk插件-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.2</version>
+                <configuration>
+                    <source>8</source>
+                    <target>8</target>
+                </configuration>
+            </plugin>
+
+            <!--springboot的打包插件-->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.3.0.RELEASE</version>
+            </plugin>
+
+            <!-- maven-surefire-plugin 测试包 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.4.2</version>
+                <configuration>
+                    <!-- 全局是否执行maven生命周期中的测试：是否跳过测试 -->
+                    <skipTests>true</skipTests>
+                    <!-- 解决测试中文乱码-->
+                    <forkMode>once</forkMode>
+                    <argLine>-Dfile.encoding=UTF-8</argLine>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
+</project>
